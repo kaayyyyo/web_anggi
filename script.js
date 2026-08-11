@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const heartIcon = document.querySelector('.heart-icon');
 
     // Create background audio (placeholder for user's file)
-    const bgMusic = new Audio('assets/music/our-song.mp3');
+    const bgMusic = new Audio('assets/music/Forever.mp3');
     bgMusic.loop = true;
     let isMusicPlaying = false;
     let musicError = false;
