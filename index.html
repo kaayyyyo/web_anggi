@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For Anggi ♡</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500&family=Caveat:wght@400;500;600&family=Alex+Brush&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Decorative Particles -->
+    <div id="particles-container"></div>
+    
+    <!-- Progress Indicator -->
+    <div class="scroll-progress"></div>
+
+    <!-- Background Music Control -->
+    <div id="music-control" class="hidden">
+        <span class="icon">♫</span>
+    </div>
+
+    <!-- Section 1: Cinematic Opening -->
+    <section id="opening-screen" class="fullscreen-section">
+        <div class="opening-sequence scrapbook-opening">
+            
+            <div class="bg-paper-texture"></div>
+            
+            <h1 class="fade-sequence oversized-heading mt-4" style="--delay: 0.5s;">Hey,<br>Anggi.</h1>
+            
+            <div class="opening-body mt-8">
+                <p class="fade-sequence" style="--delay: 2.5s;">I know today was a long day.</p>
+                <p class="fade-sequence mt-2" style="--delay: 4.5s;">But now that it's finally over...</p>
+                
+                <div class="flex-align-center fade-sequence mt-8 relative-block" style="--delay: 6.5s;">
+                    <div class="decorative-line horizontal short"></div>
+                    <p class="script-large ml-2">I made something for you.</p>
+                    <span class="handwritten-mark heart-mark ml-2 float-subtle">♡</span>
+                </div>
+            </div>
+            
+            <div class="btn-container fade-sequence mt-12" style="--delay: 8.5s;">
+                <button id="open-btn" class="btn-delicate scrapbook-btn interactive-btn">
+                    <span class="btn-text">open it</span>
+                    <div class="paper-tape tape-corner-btn scale-in" style="--delay: 9s;"></div>
+                </button>
+            </div>
+            
+            <div class="bg-glow rose-glow opening-glow"></div>
+        </div>
+    </section>
+
+    <!-- Main Content Container (Hidden initially) -->
+    <main id="main-content" class="hidden">
+        <!-- Section 2: The Reveal -->
+        <section id="reveal" class="padded-section">
+            <div class="bg-glow cream-glow"></div>
+            
+            <div class="reveal-content mt-10 relative-block z-10">
+                <div class="paper-tape tape-top-right reveal-scale delay-4"></div>
+                
+                <div class="scrapbook-layout-1">
+                    <!-- Text Area -->
+                    <div class="scrapbook-text-area">
+                        <span class="chapter-label mb-4 reveal-up">02 &mdash; <span class="script-text">You Did It</span></span>
+                        
+                        <h1 class="scrapbook-title mb-8 mt-2">
+                            <span class="serif-part reveal-left delay-1">YOU</span><br>
+                            <span class="script-part highlight-color reveal-left delay-2">Did It! </span>
+                        </h1>
+                        
+                        <div class="text-block relative-block reveal-up delay-3">
+                            <div class="torn-paper torn-accent"></div>
+                            <p class="sans-text mb-2 text-dark">Finally.</p>
+                            <p class="sans-text mb-6">Sidangnya selesai.</p>
+                            <div class="decorative-vertical-line mini"></div>
+                            <p class="sans-text small-text text-muted mb-4 mt-4">And I couldn't be more proud of you.</p>
+                        </div>
+                    </div>
+
+                    <!-- Photo Integration -->
+                    <div class="scrapbook-photo-frame tilt-right reveal-rotate delay-2">
+                        <div class="paper-tape tape-top-center reveal-scale delay-5"></div>
+                        <div class="hero-photo-container">
+                            <img src="assets/photos/anggi.jpg" alt="Anggi" class="hero-anggi-photo">
+                        </div>
+                        <div class="botanical-decoration deco-corner float-subtle delay-6">❀</div>
+                        <div class="faded-frame-bg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Her Journey -->
+        <section id="journey" class="padded-section">
+            <div class="bg-glow subtle-rose-glow"></div>
+            
+            <div class="story-narrative scrapbook-narrative">
+                <span class="chapter-label reveal-up">03 &mdash; YOUR JOURNEY</span>
+                
+                <!-- Scattered Cards -->
+                <div class="scrapbook-card card-style-1 tilt-left mt-10 reveal-left">
+                    <div class="paper-tape tape-corner-left reveal-scale delay-2"></div>
+                    <p class="story-text">I know getting here wasn't easy.</p>
+                </div>
+                
+                <div class="scrapbook-card card-style-note tilt-right mt-8 offset-right reveal-right">
+                    <div class="paper-pin reveal-scale delay-2"></div>
+                    <p class="story-text large-italic text-accent">"Ada capeknya."</p>
+                </div>
+                
+                <div class="scrapbook-card card-style-torn tilt-left mt-6 offset-left reveal-left delay-1">
+                    <p class="story-text large-italic text-accent">"Ada stresnya."</p>
+                </div>
+                
+                <div class="scrapbook-card card-style-strip tilt-slight mt-10 reveal-up delay-2">
+                    <div class="paper-tape tape-side reveal-scale delay-4"></div>
+                    <p class="story-text text-muted">Ada hari-hari di mana semuanya terasa berat.</p>
+                </div>
+                
+                <div class="spacer-large"></div>
+                
+                <!-- Major Visual Statement -->
+                <div class="story-block text-center mb-10 relative-block">
+                    <div class="torn-paper bg-layer layer-1 reveal-scale"></div>
+                    <div class="torn-paper bg-layer layer-2 reveal-scale delay-1"></div>
+                    
+                    <p class="story-text text-muted script-large mb-4 reveal-up delay-1">Tapi   </p>
+                    <h2 class="serif-title massive-text mt-4 z-10 relative reveal-scale delay-3 emotional-highlight">YOU KEPT<br>GOING.</h2>
+                    
+                    <div class="botanical-decoration deco-floating float-subtle reveal-up delay-4">🌿</div>
+                </div>
+                
+                <div class="spacer-medium"></div>
+                
+                <div class="scrapbook-card card-style-minimal tilt-right mt-10 relative-block reveal-left">
+                    <div class="decorative-line vertical-left"></div>
+                    <p class="story-text">And today...</p>
+                    <p class="story-text large-italic mt-2 reveal-left delay-2">you finally made it.</p>
+                </div>
+                
+                <div class="spacer-medium"></div>
+                
+                <div class="scrapbook-highlight-box tilt-slight reveal-up">
+                    <div class="paper-tape tape-top-center reveal-scale delay-2"></div>
+                    <div class="sparkle-icon left float-subtle delay-1">✧</div>
+                    <h2 class="serif-title emphasis-text m-0 text-center">
+                        <span class="reveal-up delay-1">I'm so proud of you,</span><br>
+                        <span class="script-text highlight-color reveal-up delay-3 ml-2" style="font-size: 1.5em;">Anggi</span><span class="reveal-up delay-4">. ♡</span>
+                    </h2>
+                    <div class="sparkle-icon right float-subtle delay-2">✧</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Interactive Message -->
+        <section id="interactive-message" class="padded-section">
+            <div class="bg-typography center-bg opacity-low">PROUD.</div>
+            
+            <div class="scrapbook-note-card reveal-up relative-block z-10 text-center">
+                <div class="paper-tape tape-top-center length-long reveal-scale delay-2"></div>
+                <span class="decorative-quote serif-quote">“</span>
+                
+                <p class="serif-text mb-8 mt-6">Do you know what my favorite part is?</p>
+                
+                <button id="interactive-btn" class="btn-delicate interactive-btn">what? <span class="heart-icon">♡</span></button>
+                
+                <div id="interactive-reveal" class="hidden-message mt-8 text-left">
+                    <div class="decorative-vertical-line center-auto mb-6"></div>
+                    <p class="story-text mb-4 reveal-line">It's not just that you finished your final defense.</p>
+                    <p class="story-text mb-4 reveal-line">But that I got to see how hard you fought to get here.</p>
+                    <p class="story-text mb-4 reveal-line script-large">And honestly...</p>
+                    <div class="highlight-marker reveal-line">
+                        <p class="story-text emphasis-text text-dark mt-4">Seeing you reach this moment makes me ridiculously proud.</p>
+                    </div>
+                </div>
+                
+                <div class="handwritten-mark heart-doodle float-subtle">♡</div>
+            </div>
+        </section>
+
+        <!-- Section 5: Our Memories -->
+        <section id="memories" class="padded-section">
+            <div class="bg-glow cream-glow large-glow"></div>
+            <div class="bg-typography left-side opacity-low">US.</div>
+            
+            <div class="text-center mb-12 reveal-up z-10 relative-block">
+                <span class="chapter-label">04 &mdash; OUR LITTLE <span class="script-text">Memories</span></span>
+                <h2 class="serif-title mt-4">A little reminder<br>of us. ♡</h2>
+                <div class="botanical-decoration deco-center mt-4 float-subtle delay-2">❧</div>
+            </div>
+            
+            <div class="scrapbook-collage-gallery">
+                <!-- Staggered collage items with specialized animation triggers -->
+                <div class="polaroid-scrapbook frame-style-1 tilt-left-strong collage-item overlap-1" data-delay="0">
+                    <div class="layered-paper layer-back"></div>
+                    <div class="paper-tape tape-corner-right tape-anim"></div>
+                    <div class="photo-placeholder" data-src="assets/photos/photo1.jpeg"></div>
+                    <p class="caption handwritten"></p>
+                    <span class="quote-mark-small">"</span>
+                </div>
+                
+                <div class="polaroid-scrapbook frame-style-2 tilt-right collage-item overlap-2" data-delay="300">
+                    <div class="paper-tape tape-top-center tape-anim"></div>
+                    <div class="photo-placeholder" data-src="assets/photos/photo2.jpeg"></div>
+                    <p class="caption handwritten"></p>
+                </div>
+                
+                <div class="polaroid-scrapbook frame-style-3 tilt-left collage-item overlap-3" data-delay="600">
+                    <div class="torn-paper edge-bottom"></div>
+                    <div class="paper-tape tape-side-left tape-anim"></div>
+                    <div class="photo-placeholder" data-src="assets/photos/photo3.jpeg"></div>
+                    <p class="caption handwritten"></p>
+                    <div class="botanical-decoration deco-small float-subtle">𖤓</div>
+                </div>
+                
+                <div class="polaroid-scrapbook frame-style-1 tilt-right-strong collage-item overlap-4" data-delay="900">
+                    <div class="layered-paper layer-offset"></div>
+                    <div class="paper-tape tape-bottom-right tape-anim"></div>
+                    <div class="photo-placeholder" data-src="assets/photos/photo4.jpeg"></div>
+                    <p class="caption handwritten"></p>
+                </div>
+                
+                <div class="polaroid-scrapbook frame-style-final tilt-center collage-item overlap-5" data-delay="1200">
+                    <div class="paper-tape tape-top-center length-long tape-anim"></div>
+                    <div class="photo-placeholder" data-src="assets/photos/photo5.jpeg"></div>
+                    <p class="caption handwritten"></p>
+                    <div class="handwritten-mark star-doodle float-subtle">✧</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Transition to Letter -->
+        <section id="transition-letter" class="padded-section flex-center text-center transition-out">
+            <div class="bg-glow subtle-rose-glow"></div>
+            <div class="story-container relative-block">
+                <span class="chapter-label reveal-up">05 &mdash; SOMETHING I WANTED TO SAY</span>
+                <div class="spacer-medium"></div>
+                <p class="story-text reveal-up delay-1">Okay...</p>
+                <div class="spacer-medium"></div>
+                <p class="story-text large-italic reveal-up delay-3">I actually made this website<br>for one reason.</p>
+                <div class="spacer-medium"></div>
+                <p class="serif-title highlight-text reveal-scale delay-5">A letter for you.</p>
+                
+                <div class="scrapbook-arrow-container reveal-up delay-7 mt-12">
+                    <span class="handwritten-note arrow-note tilt-right float-subtle">this one's for you ♡</span>
+                    <div class="arrow-down handwritten-mark">↓</div>
+                </div>
+                
+                <!-- Enhanced Envelope Component -->
+                <div class="envelope-wrapper mt-8 reveal-scale delay-8 relative-block z-10" id="envelope">
+                    <div class="layered-paper envelope-back-paper"></div>
+                    
+                    <div class="envelope">
+                        <!-- Inside content that slides up -->
+                        <div class="letter-inside">
+                            <div class="letter-preview-content">
+                                <span class="botanical-decoration deco-letter-preview">❀</span>
+                                <p class="preview-text">Dear Anggi...</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Front layers -->
+                        <div class="envelope-back"></div>
+                        <div class="envelope-front"></div>
+                        <div class="envelope-flap"></div>
+                        <div class="envelope-body">
+                            <div class="heart-seal interactive-seal">♡</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Love Letter (Full View) -->
+        <section id="letter-content" class="fullscreen-section letter-bg hidden">
+            <div class="scrapbook-letter-container">
+                <div class="botanical-decoration deco-letter-top float-subtle">❀</div>
+                <div class="letter-paper scrapbook-stationery">
+                    <div class="torn-paper edge-top"></div>
+                    <div class="letter-content-inner opacity-0">
+                        <p>Dear Anggi,</p>
+                        <p>You did it.</p>
+                        <p>Finally, sidang akhirnya selesai.</p>
+                        <p>Aku tahu perjalanan kamu sampai ke titik ini pasti nggak selalu gampang. Ada capeknya, ada stresnya, mungkin ada saat-saat ketika kamu cuma pengen semuanya cepat selesai.</p>
+                        <p>But look at you now.</p>
+                        <p>You made it.</p>
+                        <p>Aku mungkin nggak bisa merasakan semua yang kamu lewati selama prosesnya, tapi satu hal yang aku tahu...</p>
+                        <p>Aku bangga banget sama kamu.</p>
+                        <p>Dan bukan cuma karena hari ini kamu berhasil menyelesaikan sidang akhir.</p>
+                        <p>Aku bangga karena kamu tetap bertahan sampai sejauh ini.</p>
+                        <p>Terima kasih karena sudah berusaha sekeras itu.</p>
+                        <p>Sekarang, tarik napas.</p>
+                        <p>Nggak perlu mikirin revisi dulu.<br>
+                        Nggak perlu mikirin hal-hal yang belum selesai dulu.</p>
+                        <p>Untuk beberapa menit ini...</p>
+                        <p>just enjoy this moment.</p>
+                        <p>Because you deserve it.</p>
+                        <p class="letter-emphasis">Congratulations on finishing your final defense, sayang. ♡</p>
+                        <p class="letter-emphasis">I'm so, so proud of you.</p>
+                        <p>And whatever comes after this,</p>
+                        <p>I'll always be here,<br>
+                        cheering for you.</p>
+                        <p class="signature script-signature opacity-0">— Raka ♡</p>
+                    </div>
+                </div>
+                <div class="botanical-decoration deco-letter-bottom float-subtle delay-2">🌿</div>
+                
+                <div class="flex-center mt-12 mb-10 letter-btn-container opacity-0">
+                    <button id="final-btn" class="btn-delicate interactive-btn">
+                        <span class="btn-text">one last thing...</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Cinematic Ending -->
+        <section id="cinematic-ending" class="fullscreen-section dark-ending hidden flex-center">
+            <div class="film-grain"></div>
+            
+            <div class="fading-paper paper-fade-1"></div>
+            <div class="fading-paper paper-fade-2"></div>
+            
+            <div class="bg-typography center-bg glow-text"><span class="script-text">Always.</span></div>
+            
+            <div id="ending-sequence" class="story-container editorial-ending">
+                <!-- Text populated by JS -->
+            </div>
+            
+            <div class="ending-ambient-glow"></div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

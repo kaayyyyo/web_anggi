@@ -1,0 +1,1374 @@
+:root {
+    /* Kept exactly as requested: Cream first, Dusty Rose second */
+    --bg-color: #FDFBF7; /* Warmer, softer cream */
+    --text-color: #2D2828;
+    --text-muted: #736B6B;
+    --accent-color: #D3A7B1; /* Softer dusty rose */
+    --accent-light: rgba(211, 167, 177, 0.12);
+    --accent-dark: #7A3B4F; /* Elegant burgundy */
+    
+    /* Typography */
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
+    --font-handwriting: 'Caveat', cursive;
+    --font-script: 'Alex Brush', cursive; 
+    
+    /* Scrapbook Elements - neutral/cream */
+    --paper-color-1: #FFFFFF;
+    --paper-color-2: #F9F6F0;
+    --paper-color-3: #F6F3EB;
+    --tape-color: rgba(255, 255, 255, 0.65);
+    
+    /* Envelope */
+    --envelope-color: #F0E8DD;
+    --envelope-flap: #E6DDD0;
+    --envelope-shadow: 0 12px 30px rgba(122, 59, 79, 0.08);
+    --letter-bg: #FCFBF8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    width: 100%;
+}
+
+/* Subtle Scrapbook Grain */
+body::before {
+    content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999;
+}
+
+/* Scroll Progress Line */
+.scroll-progress {
+    position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+    background: linear-gradient(90deg, var(--accent-light), var(--accent-dark));
+    z-index: 10000; transition: width 0.1s;
+}
+
+/* Background Glows */
+.bg-glow { position: absolute; border-radius: 50%; filter: blur(80px); z-index: 0; pointer-events: none; opacity: 0.25; }
+.cream-glow { background: #FFF; width: 70vw; height: 70vw; top: 10%; right: -10%; opacity: 0.4; }
+.subtle-rose-glow { background: var(--accent-color); width: 60vw; height: 60vw; bottom: 15%; left: -15%; opacity: 0.12; }
+.large-glow { width: 85vw; height: 85vw; filter: blur(100px); opacity: 0.18; }
+.opening-glow { animation: gentleBreath 8s infinite alternate ease-in-out; }
+
+@keyframes gentleBreath {
+    0% { transform: scale(1); opacity: 0.12; }
+    100% { transform: scale(1.08); opacity: 0.22; }
+}
+
+/* Background Typography */
+.bg-typography {
+    position: absolute; font-family: var(--font-serif); font-size: clamp(4.5rem, 16vw, 20rem);
+    font-weight: 600; color: rgba(122, 59, 79, 0.025); z-index: 0; pointer-events: none; white-space: nowrap; user-select: none;
+}
+.right-side { top: 5%; right: -5%; text-align: right; }
+.left-side { top: 10%; left: -5%; }
+.center-bg { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.opacity-low { opacity: 0.5; }
+
+/* Micro-animations */
+.float-subtle { animation: floatSubtle 6s ease-in-out infinite alternate; }
+.float-subtle.delay-1 { animation-delay: -1s; }
+.float-subtle.delay-2 { animation-delay: -2s; }
+.float-subtle.delay-3 { animation-delay: -3s; }
+@keyframes floatSubtle {
+    0% { transform: translateY(0) rotate(0); }
+    100% { transform: translateY(-3px) rotate(1deg); }
+}
+
+/* SCRAPBOOK COMPONENT SYSTEM */
+.scrapbook-card {
+    background-color: var(--paper-color-1);
+    padding: clamp(1.2rem, 4vw, 2rem);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03), 0 1px 3px rgba(122, 59, 79, 0.02);
+    position: relative; border-radius: 2px;
+    width: 100%;
+}
+.card-style-1 { max-width: 90vw; }
+.card-style-note { background-color: var(--paper-color-2); padding: 1.1rem 1.4rem; max-width: 82vw; }
+.card-style-torn { background-color: var(--paper-color-3); padding: 1.1rem 1.4rem; border-left: 2px solid var(--accent-light); max-width: 85vw; }
+.card-style-strip { padding: 0.8rem 1.2rem; border-top: 1px dashed rgba(122,59,79,0.1); max-width: 90vw; }
+.card-style-minimal { background: transparent; padding-left: 1.2rem; border-left: 2px solid var(--accent-light); box-shadow: none; }
+
+.scrapbook-highlight-box {
+    background-color: var(--paper-color-1);
+    padding: clamp(1.5rem, 5vw, 2.8rem);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.04), 0 2px 10px rgba(122, 59, 79, 0.03);
+    position: relative; border: 1px solid rgba(211, 167, 177, 0.1);
+    width: 100%; max-width: 550px; margin: 0 auto;
+}
+
+.scrapbook-note-card {
+    background-color: var(--paper-color-3);
+    padding: clamp(2rem, 6vw, 3.2rem) clamp(1.2rem, 4vw, 2.4rem);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.04);
+    border-radius: 2px;
+    width: 90vw; max-width: 550px;
+    margin: 0 auto; position: relative;
+}
+
+/* Tape */
+.paper-tape {
+    position: absolute; background-color: var(--tape-color);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); backdrop-filter: blur(2px); z-index: 5; opacity: 0.9;
+}
+.tape-top-center { width: clamp(50px, 12vw, 80px); height: 18px; top: -9px; left: 50%; transform: translateX(-50%) rotate(-2deg); }
+.tape-top-right { width: 55px; height: 16px; top: -6px; right: 10px; transform: rotate(3deg); }
+.tape-corner-left { width: 40px; height: 15px; top: -4px; left: -8px; transform: rotate(-45deg); }
+.tape-corner-right { width: 48px; height: 16px; top: -6px; right: -10px; transform: rotate(40deg); }
+.tape-corner-btn { width: 30px; height: 12px; top: -3px; right: -6px; transform: rotate(35deg); }
+.tape-side { width: 16px; height: 38px; left: -8px; top: 50%; transform: translateY(-50%) rotate(2deg); }
+.tape-side-left { width: 16px; height: 42px; left: -8px; top: 20%; transform: rotate(-4deg); }
+.tape-bottom-right { width: 55px; height: 18px; bottom: -8px; right: 8px; transform: rotate(-3deg); }
+.length-long { width: clamp(80px, 20vw, 120px); }
+
+/* Torn Paper */
+.torn-paper { position: absolute; background-color: var(--paper-color-2); z-index: -1; }
+.torn-accent { width: 110%; height: 110%; top: -5%; left: -5%; transform: rotate(-1deg); box-shadow: 0 3px 8px rgba(0,0,0,0.02); opacity: 0.7; }
+.bg-layer { width: 100%; height: 100%; top: 0; left: 0; }
+.layer-1 { background-color: var(--paper-color-3); transform: scale(1.06) rotate(1deg); box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+.layer-2 { background-color: var(--paper-color-1); transform: scale(1.03) rotate(-1.5deg); box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
+.edge-top { top: -12px; left: 0; width: 100%; height: 24px; background: var(--paper-color-3); transform: rotate(0.5deg); box-shadow: 0 -2px 4px rgba(0,0,0,0.02); z-index: 0; }
+.edge-bottom { bottom: -12px; left: 0; width: 100%; height: 24px; background: var(--paper-color-1); transform: rotate(-0.5deg); box-shadow: 0 2px 4px rgba(0,0,0,0.02); z-index: 0; }
+
+.layered-paper { position: absolute; background-color: var(--paper-color-3); z-index: -1; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+.layer-back { width: 100%; height: 100%; top: 4px; left: 4px; transform: rotate(1.5deg); }
+.layer-offset { width: 104%; height: 104%; top: -4px; left: -4px; transform: rotate(-1deg); background-color: var(--paper-color-2); }
+.envelope-back-paper { width: 108%; height: 115%; top: -8%; left: -4%; transform: rotate(-1.5deg); background-color: var(--paper-color-1); }
+
+/* Annotations & Decorations */
+.handwritten-note { font-family: var(--font-handwriting); color: var(--text-dark); position: absolute; z-index: 10; font-size: clamp(1.2rem, 3.8vw, 1.4rem); }
+.arrow-note { top: -18px; right: 20%; color: var(--accent-dark); }
+.handwritten-mark { font-family: var(--font-handwriting); color: var(--accent-color); position: absolute; }
+.heart-mark { position: relative; font-size: 1.4rem; display: inline-block; top: -3px; }
+.heart-doodle { font-size: 1.8rem; bottom: 12px; right: 18px; opacity: 0.65; transform: rotate(-15deg); }
+.star-doodle { font-size: 1.5rem; top: -8px; left: -8px; opacity: 0.75; transform: rotate(20deg); }
+.arrow-down { font-size: 1.8rem; position: relative; color: var(--accent-color); animation: gentlePulse 2.5s infinite; margin-top: 4px; }
+.paper-pin {
+    width: 8px; height: 8px; background-color: var(--accent-dark); border-radius: 50%; position: absolute;
+    top: 8px; left: 50%; transform: translateX(-50%); box-shadow: 0 1px 3px rgba(0,0,0,0.1), inset 0 1px 2px rgba(255,255,255,0.2);
+}
+
+.botanical-decoration { position: absolute; font-size: 1.1rem; color: var(--accent-color); opacity: 0.45; z-index: 5; font-family: serif; }
+.deco-corner { top: -8px; right: -8px; font-size: 1.4rem; transform: rotate(15deg); }
+.deco-floating { top: -16px; left: 12%; font-size: 1.4rem; transform: rotate(-20deg); opacity: 0.3; }
+.deco-center { position: relative; font-size: 1.5rem; }
+.deco-small { bottom: 8px; right: 8px; font-size: 1rem; }
+.deco-letter-top { top: 12px; right: 16px; font-size: 1.2rem; opacity: 0.25; }
+.deco-letter-bottom { bottom: 20px; left: 16px; font-size: 1.4rem; opacity: 0.35; }
+
+.decorative-quote { font-family: var(--font-serif); font-size: clamp(2.8rem, 7vw, 4.2rem); color: var(--accent-light); line-height: 0; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); z-index: 0; }
+.quote-mark-small { font-family: var(--font-serif); font-size: 2rem; color: var(--accent-light); position: absolute; top: -8px; left: 8px; line-height: 0; }
+.decorative-line { background-color: var(--accent-color); opacity: 0.35; }
+.decorative-line.horizontal { height: 1px; width: 100%; }
+.decorative-line.short { width: 35px; }
+.decorative-vertical-line { width: 1px; height: 32px; background-color: var(--accent-color); margin: 0.8rem 0; opacity: 0.35; }
+.decorative-vertical-line.mini { height: 16px; }
+.decorative-vertical-line.center-auto { margin-left: auto; margin-right: auto; }
+.vertical-left { position: absolute; left: 0; top: 0; height: 100%; width: 2px; margin: 0; }
+
+/* TYPOGRAPHY — MOBILE SCALE */
+.chapter-label { font-family: var(--font-sans); font-size: clamp(0.68rem, 2.2vw, 0.75rem); font-weight: 500; letter-spacing: 0.12em; color: var(--accent-dark); display: inline-block; text-transform: uppercase; position: relative; z-index: 2; }
+.script-text { font-family: var(--font-script); font-size: 1.5em; font-weight: normal; text-transform: none; letter-spacing: 0; vertical-align: middle; line-height: 0.8; }
+.script-large { font-family: var(--font-script); font-size: clamp(2.2rem, 8vw, 3.2rem); color: var(--accent-dark); line-height: 1; }
+.serif-title { font-family: var(--font-serif); font-size: clamp(1.8rem, 7.5vw, 2.8rem); font-weight: 400; line-height: 1.15; color: var(--text-color); }
+.scrapbook-title { line-height: 0.95; }
+.serif-part { font-family: var(--font-serif); font-size: clamp(2.4rem, 10vw, 3.8rem); font-weight: 400; color: var(--text-color); }
+.script-part { font-family: var(--font-script); font-size: clamp(3.2rem, 13vw, 5.2rem); color: var(--accent-dark); display: block; margin-top: -10px; margin-left: 12px; }
+.highlight-color { color: var(--accent-dark); }
+.oversized-heading { font-family: var(--font-serif); font-size: clamp(2.8rem, 11vw, 4.5rem); font-style: italic; font-weight: 400; color: var(--text-color); line-height: 1.05; }
+.massive-text { font-size: clamp(2rem, 7.5vw, 3.2rem); color: var(--accent-dark); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+.large-italic { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.35rem, 4.5vw, 1.8rem); color: var(--accent-dark); }
+.serif-text { font-family: var(--font-serif); font-size: clamp(1.25rem, 4vw, 1.6rem); font-weight: 400; }
+.sans-text { font-family: var(--font-sans); font-size: clamp(0.95rem, 2.8vw, 1.05rem); font-weight: 300; letter-spacing: 0.01em; }
+.small-text { font-size: clamp(0.82rem, 2.2vw, 0.9rem); }
+.text-muted { color: var(--text-muted); }
+.text-dark { color: var(--text-color); font-weight: 400; }
+.text-accent { color: var(--accent-dark); }
+.highlight-text { color: var(--accent-dark); font-family: var(--font-serif); font-style: italic; font-size: clamp(1.35rem, 4.5vw, 1.8rem); }
+.emphasis-text { font-weight: 400; color: var(--accent-dark); font-size: clamp(1.25rem, 4vw, 1.6rem) !important; }
+.highlight-marker { background: linear-gradient(180deg, transparent 60%, rgba(211, 167, 177, 0.15) 60%); display: inline-block; padding: 0 4px; }
+.letter-emphasis { font-family: var(--font-serif); font-style: italic; font-size: 1.2em; color: var(--accent-dark); }
+.script-signature { font-family: var(--font-script); font-size: clamp(2.4rem, 8vw, 3.2rem) !important; margin-top: clamp(1.5rem, 4vh, 2.5rem) !important; line-height: 0.8; }
+.caption.handwritten { font-family: var(--font-handwriting); font-size: clamp(1.15rem, 3.5vw, 1.3rem); color: var(--text-dark); margin-top: 0.8rem; text-align: center; }
+
+/* UTILITIES */
+.tilt-left { transform: rotate(-1deg); }
+.tilt-right { transform: rotate(1deg); }
+.tilt-slight { transform: rotate(-0.5deg); }
+.tilt-left-strong { transform: rotate(-2deg); }
+.tilt-right-strong { transform: rotate(2deg); }
+.tilt-center { transform: rotate(0deg); }
+
+/* Mobile Utilities: Tight Margins & Spacing */
+.offset-left { margin-left: 0; }
+.offset-right { margin-left: 5%; }
+.hidden { display: none !important; }
+.mb-2 { margin-bottom: 0.4rem; } .mb-4 { margin-bottom: 0.8rem; } .mb-6 { margin-bottom: 1.2rem; } .mb-8 { margin-bottom: 1.5rem; } .mb-10 { margin-bottom: 2rem; } .mb-12 { margin-bottom: 2.5rem; }
+.mt-2 { margin-top: 0.4rem; } .mt-4 { margin-top: 0.8rem; } .mt-6 { margin-top: 1.2rem; } .mt-8 { margin-top: 1.5rem; } .mt-10 { margin-top: 2rem; } .mt-12 { margin-top: 2.5rem; }
+.ml-2 { margin-left: 0.4rem; } .m-0 { margin: 0; }
+.text-center { text-align: center; } .text-left { text-align: left; }
+.flex-center { display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.flex-align-center { display: flex; align-items: center; }
+.relative-block { position: relative; } .z-10 { z-index: 10; }
+.fullscreen-section { min-height: 100vh; width: 100%; padding: clamp(1.5rem, 5vw, 2.5rem); position: relative; }
+.padded-section { padding: clamp(2.5rem, 6vh, 4rem) clamp(1.2rem, 4vw, 2rem); min-height: 35vh; width: 100%; max-width: 900px; margin: 0 auto; position: relative; }
+.spacer-medium { height: clamp(3vh, 5vh, 6vh); } .spacer-large { height: clamp(5vh, 8vh, 10vh); }
+
+/* Interactions */
+.interactive-btn { transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.interactive-btn:active { transform: scale(0.95); }
+.btn-delicate {
+    background: transparent; border: none; color: var(--accent-dark); font-family: var(--font-serif);
+    font-size: clamp(1rem, 3vw, 1.2rem); font-style: italic; cursor: pointer; padding: 0.4rem 0;
+    position: relative; outline: none; -webkit-tap-highlight-color: transparent; display: inline-block;
+}
+.btn-delicate::after {
+    content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px;
+    background-color: var(--accent-color); transform: scaleX(0.3); transform-origin: left; transition: transform 0.4s ease;
+}
+.btn-delicate:hover::after { transform: scaleX(1); }
+.scrapbook-btn { padding: 0.4rem 0.9rem; background: var(--paper-color-1); box-shadow: 0 3px 8px rgba(0,0,0,0.03); border-radius: 2px; }
+.scrapbook-btn::after { display: none; }
+.scrapbook-btn:hover { box-shadow: 0 5px 12px rgba(122,59,79,0.08); }
+
+/* Opening Animation Classes */
+#opening-screen {
+    display: flex; justify-content: center; align-items: center;
+    background-color: var(--bg-color); position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+    transition: opacity 1.5s ease, visibility 1.5s ease;
+}
+.scrapbook-opening {
+    display: flex; flex-direction: column; align-items: flex-start;
+    width: 100%; max-width: 480px; position: relative; z-index: 2; padding: 1.5rem 1rem;
+}
+.bg-paper-texture { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--paper-color-3); z-index: -2; opacity: 0.3; filter: blur(20px); }
+.opening-body { font-size: clamp(1rem, 3vw, 1.15rem); color: var(--text-color); }
+
+.fade-sequence { opacity: 0; transform: translateY(15px); animation: seqFadeIn 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: var(--delay); }
+@keyframes seqFadeIn { to { opacity: 1; transform: translateY(0); } }
+
+/* SCROLL REVEAL SYSTEM — MOBILE DRIFT DISTANCES */
+.reveal-up, .reveal-left, .reveal-right, .reveal-scale, .reveal-rotate { opacity: 0; transition: all 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.reveal-up { transform: translateY(22px); }
+.reveal-left { transform: translateX(-20px); }
+.reveal-right { transform: translateX(20px); }
+.reveal-scale { transform: scale(0.97); }
+.reveal-rotate { transform: translateY(22px) rotate(-3deg); }
+
+.is-visible.reveal-up { opacity: 1; transform: translateY(0); }
+.is-visible.reveal-left { opacity: 1; transform: translateX(0); }
+.is-visible.reveal-right { opacity: 1; transform: translateX(0); }
+.is-visible.reveal-scale { opacity: 1; transform: scale(1); }
+.is-visible.reveal-rotate { opacity: 1; transform: translateY(0) rotate(1deg); }
+
+.delay-1 { transition-delay: 100ms; }
+.delay-2 { transition-delay: 200ms; }
+.delay-3 { transition-delay: 300ms; }
+.delay-4 { transition-delay: 400ms; }
+.delay-5 { transition-delay: 500ms; }
+.delay-6 { transition-delay: 600ms; }
+.delay-7 { transition-delay: 700ms; }
+.delay-8 { transition-delay: 800ms; }
+
+@keyframes gentlePulse { 0%, 100% { transform: scale(1); opacity: 0.6; } 50% { transform: scale(1.08); opacity: 1; text-shadow: 0 0 12px var(--accent-light); } }
+
+/* SECTION 2 — YOU DID IT MOBILE COMPOSITION */
+.scrapbook-layout-1 {
+    display: flex; flex-direction: column; gap: 1.8rem; position: relative; align-items: center; width: 100%;
+}
+.scrapbook-text-area { width: 100%; }
+.scrapbook-photo-frame {
+    background: var(--paper-color-1);
+    padding: 0.6rem 0.6rem 2rem 0.6rem;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+    width: 78vw;
+    max-width: 270px;
+    position: relative;
+    z-index: 2;
+    margin: 1rem auto 0 auto;
+}
+.hero-photo-container {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background-color: var(--paper-color-2);
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.03);
+}
+.hero-photo-container::after {
+    content: '♡';
+    font-size: 1.6rem;
+    color: rgba(211, 167, 177, 0.4);
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+.hero-anggi-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    position: relative;
+    z-index: 2;
+}
+.faded-frame-bg {
+    position: absolute;
+    top: 8px; left: -8px;
+    width: 100%; height: 100%;
+    background: var(--paper-color-2);
+    z-index: 0;
+    transform: rotate(-2.5deg);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    pointer-events: none;
+}
+
+/* Interactive Reveal */
+.hidden-message { opacity: 0; height: 0; overflow: hidden; transition: opacity 0.8s ease; }
+.hidden-message.show { opacity: 1; height: auto; }
+.reveal-line { opacity: 0; transform: translateY(12px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.hidden-message.show .reveal-line { opacity: 1; transform: translateY(0); }
+.hidden-message.show .reveal-line:nth-child(2) { transition-delay: 0.2s; }
+.hidden-message.show .reveal-line:nth-child(3) { transition-delay: 0.4s; }
+.hidden-message.show .reveal-line:nth-child(4) { transition-delay: 0.8s; }
+.heart-icon { display: inline-block; transition: transform 0.3s ease; }
+.heart-pop { transform: scale(1.25); }
+
+/* SECTION 5 — MEMORIES COLLAGE (MOBILE COMPACT LAYERED COMPOSITION) */
+.scrapbook-collage-gallery {
+    display: flex; flex-direction: column; align-items: center; position: relative;
+    padding: 1rem 0; margin-top: 1rem; width: 100%;
+}
+.polaroid-scrapbook {
+    background: var(--paper-color-1); padding: 0.6rem 0.6rem 2.2rem 0.6rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(122, 59, 79, 0.03);
+    width: 62vw; max-width: 230px; position: relative; border: 1px solid rgba(0,0,0,0.01);
+}
+.tape-anim { opacity: 0; transform: scale(0.8); transition: all 0.5s ease; transition-delay: 300ms; }
+.is-visible .tape-anim { opacity: 0.9; transform: scale(1); }
+
+.collage-item { opacity: 0; transform: translateY(30px) scale(0.96); transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.collage-item.is-visible { opacity: 1; }
+
+/* Mobile Controlled Overlaps — Displays multiple photos together in mobile viewport */
+@media (max-width: 767px) {
+    .overlap-1 { z-index: 1; margin: 0 auto; transform: rotate(-2deg); }
+    .overlap-2 { z-index: 2; margin: -2.5rem 0 0 auto; margin-right: 4vw; transform: rotate(2.5deg); }
+    .overlap-3 { z-index: 3; margin: -2.8rem auto 0 4vw; transform: rotate(-1.5deg); }
+    .overlap-4 { z-index: 4; margin: -2.5rem 4vw 0 auto; transform: rotate(2deg); }
+    .overlap-5 { z-index: 5; margin: -2rem auto 0 auto; transform: rotate(-1deg); }
+}
+
+.photo-placeholder {
+    width: 100%; aspect-ratio: 4/5; background-color: var(--paper-color-2);
+    background-size: cover; background-position: center; background-repeat: no-repeat;
+    position: relative; overflow: hidden; box-shadow: inset 0 2px 8px rgba(0,0,0,0.03);
+}
+.photo-placeholder::after { content: '♡'; font-size: 1.6rem; color: rgba(211, 167, 177, 0.4); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.photo-placeholder.loaded::after { display: none; }
+
+/* SECTION 6 — ENVELOPE OPENING EXPERIENCE (MOBILE SCALED) */
+.envelope-wrapper { perspective: 1000px; margin-bottom: 1.5rem; }
+.envelope {
+    width: clamp(240px, 74vw, 320px);
+    height: clamp(160px, 48vw, 210px);
+    position: relative; z-index: 10; transition: transform 0.6s ease;
+}
+
+.envelope-back { position: absolute; width: 100%; height: 100%; background-color: var(--envelope-color); border-radius: 2px; box-shadow: var(--envelope-shadow); z-index: 1; }
+.letter-inside {
+    position: absolute; bottom: 4px; left: 8px; right: 8px; height: 95%;
+    background-color: var(--paper-color-1); z-index: 2; transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    padding: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.letter-preview-content { opacity: 0; transition: opacity 0.5s ease; font-family: var(--font-serif); font-size: 0.9rem; }
+.deco-letter-preview { top: 8px; right: 8px; opacity: 0.3; }
+
+.envelope-front {
+    position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; z-index: 4;
+    border-style: solid; border-width: clamp(80px, 24vw, 105px) clamp(120px, 37vw, 160px);
+    border-color: transparent var(--envelope-flap) var(--envelope-color) var(--envelope-flap);
+    pointer-events: none;
+}
+.envelope-flap {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-style: solid;
+    border-width: clamp(80px, 24vw, 105px) clamp(120px, 37vw, 160px);
+    border-color: var(--envelope-flap) transparent transparent transparent; z-index: 5;
+    transform-origin: top center; transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); filter: drop-shadow(0 3px 5px rgba(0,0,0,0.08));
+}
+.heart-seal {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 40px; height: 40px; background: var(--accent-dark); border-radius: 50%;
+    color: white; display: flex; justify-content: center; align-items: center; z-index: 6; font-size: 1.1rem;
+    box-shadow: 0 3px 8px rgba(122, 59, 79, 0.3), inset 0 1px 2px rgba(255,255,255,0.2); transition: all 0.2s ease; cursor: pointer;
+}
+
+/* Envelope Interaction States */
+.envelope-wrapper.open .heart-seal { transform: translate(-50%, -50%) scale(0.85); opacity: 0; transition: transform 0.2s, opacity 0.3s ease 0.15s; pointer-events: none; }
+.envelope-wrapper.open .envelope-flap { transform: rotateX(180deg); z-index: 1; }
+.envelope-wrapper.extract .letter-inside { transform: translateY(-68%); }
+.envelope-wrapper.extract .letter-preview-content { opacity: 1; transition-delay: 0.4s; }
+.envelope-wrapper.extract .envelope { transform: translateY(12px); }
+
+/* SECTION 7 — LOVE LETTER (MOBILE STATIONERY) */
+.transition-out { transition: opacity 0.8s ease; }
+.transition-out.fade-out { opacity: 0; pointer-events: none; }
+.letter-bg { padding: clamp(1.5rem, 4vh, 3rem) clamp(0.8rem, 3vw, 1.5rem); transition: opacity 1.2s ease; }
+.scrapbook-letter-container { position: relative; width: 92vw; max-width: 600px; margin: 0 auto; z-index: 20; }
+.scrapbook-stationery {
+    background-color: var(--paper-color-1);
+    padding: clamp(2rem, 6vw, 3.5rem) clamp(1.2rem, 5vw, 2.5rem);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.05), 0 4px 12px rgba(122,59,79,0.03);
+    font-family: var(--font-serif);
+    font-size: clamp(0.95rem, 2.8vw, 1.12rem);
+    color: var(--text-color);
+    position: relative; line-height: 1.75;
+}
+.scrapbook-stationery p { margin-bottom: 1.2rem; position: relative; z-index: 2; }
+.scrapbook-stationery p:last-of-type { margin-bottom: 0; }
+
+.opacity-0 { opacity: 0; transition: opacity 1s ease; }
+.opacity-1 { opacity: 1; }
+
+/* SECTION 8 — CINEMATIC ENDING */
+.dark-ending {
+    background: linear-gradient(135deg, #1C1919 0%, #2A1D21 100%);
+    color: #F8F5F2; text-align: left; position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    z-index: 2000; opacity: 0; transition: opacity 2.5s ease;
+}
+.dark-ending.show { opacity: 1; }
+.film-grain { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1; }
+.fading-paper { position: absolute; background: var(--paper-color-1); opacity: 0.03; z-index: 1; border-radius: 2px; }
+.paper-fade-1 { width: 220px; height: 300px; top: 10%; right: -5%; transform: rotate(15deg); }
+.paper-fade-2 { width: 180px; height: 260px; bottom: -10%; left: 5%; transform: rotate(-25deg); }
+.glow-text { color: rgba(255, 255, 255, 0.02); text-shadow: 0 0 40px rgba(122, 59, 79, 0.08); }
+.editorial-ending { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 88%; max-width: 550px; z-index: 2; }
+.cinematic-phrase { color: rgba(248, 245, 242, 0.9); font-size: clamp(1.25rem, 3.8vw, 1.6rem); margin-bottom: 0; opacity: 0; transition: opacity 1.8s ease, transform 1.8s ease; transform: translateY(10px); text-align: left; }
+.massive-ending-text { font-size: clamp(1.8rem, 5.5vw, 2.8rem); font-style: italic; font-family: var(--font-serif); line-height: 1.2; color: #E8D3D8; }
+.final-message { opacity: 0; transition: opacity 3s ease; text-align: left; position: relative; }
+.ending-ambient-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100vw; height: 100vh; background: radial-gradient(circle, rgba(122, 59, 79, 0.1) 0%, transparent 60%); z-index: 0; pointer-events: none; opacity: 0; transition: opacity 3s ease; }
+.dark-ending.show .ending-ambient-glow { opacity: 1; }
+.final-message h1 { font-family: var(--font-serif); color: #E8D3D8; font-size: clamp(1.6rem, 4.8vw, 2.4rem); margin-bottom: 1.5rem; font-weight: 400; letter-spacing: 0.02em; }
+.final-message .always-text { font-family: var(--font-script); font-size: clamp(3.2rem, 9vw, 5rem); color: #FFF; display: block; margin-top: 0.4rem; text-shadow: 0 0 18px rgba(255,255,255,0.2); line-height: 0.8; }
+.final-message p { font-family: var(--font-sans); font-size: clamp(1rem, 2.8vw, 1.15rem); font-weight: 300; color: rgba(248, 245, 242, 0.8); letter-spacing: 0.02em; line-height: 1.6; }
+
+#particles-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
+.particle { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(211, 167, 177, 0.35) 0%, transparent 70%); animation: drift 15s linear infinite; }
+@keyframes drift { 0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; } 20% { opacity: 0.35; } 80% { opacity: 0.35; } 100% { transform: translateY(-100px) translateX(30px) scale(1.4); opacity: 0; } }
+
+/* DESKTOP RESPONSIVE PRESERVATION (min-width: 768px) */
+@media (min-width: 768px) {
+    .scrapbook-layout-1 { flex-direction: row; align-items: center; justify-content: space-between; width: 100%; gap: 2rem; }
+    .scrapbook-text-area { flex: 1; max-width: 480px; }
+    .scrapbook-photo-frame { flex: 0 0 300px; width: 300px; max-width: 300px; margin: 0; }
+    .scrapbook-collage-gallery { flex-direction: row; flex-wrap: wrap; justify-content: center; max-width: 1000px; height: 600px; margin-top: 4rem; }
+    .polaroid-scrapbook { position: absolute; width: 100%; max-width: 270px; margin: 0; transition: transform 0.4s ease, box-shadow 0.4s ease; }
+    .overlap-1 { top: 0; left: 10%; transform: rotate(-3deg); margin: 0; }
+    .overlap-2 { top: 10%; right: 15%; transform: rotate(4deg); margin: 0; }
+    .overlap-3 { top: 30%; left: 35%; transform: rotate(-1deg); margin: 0; }
+    .overlap-4 { bottom: 5%; left: 15%; transform: rotate(2deg); margin: 0; }
+    .overlap-5 { bottom: 0; right: 25%; transform: rotate(-2deg); margin: 0; }
+    .polaroid-scrapbook.is-visible:hover { transform: scale(1.04) rotate(0deg) translateY(-5px) !important; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1); z-index: 20 !important; }
+    
+    .card-style-1 { max-width: 85%; }
+    .card-style-note { max-width: 75%; }
+    .card-style-torn { max-width: 80%; }
+    .card-style-strip { max-width: 90%; }
+    .offset-left { margin-left: -5%; }
+    .offset-right { margin-left: 15%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+    .float-subtle { animation: none !important; }
+}
+
+
+/* =========================================================
+   MOBILE REDESIGN — v2
+   Goal: premium, calm, one-column mobile storytelling.
+   Original content and interactions are preserved.
+   ========================================================= */
+
+@media (max-width: 767px) {
+    :root {
+        --mobile-gutter: 20px;
+        --mobile-card-radius: 18px;
+        --mobile-shadow: 0 14px 35px rgba(45, 40, 40, .07);
+    }
+
+    html {
+        scroll-behavior: smooth;
+        background: var(--bg-color);
+    }
+
+    body {
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
+        font-size: 15px;
+    }
+
+    body::before {
+        opacity: .55;
+    }
+
+    #particles-container {
+        opacity: .35;
+    }
+
+    #particles-container .particle:nth-child(n+8) {
+        display: none;
+    }
+
+    .scroll-progress {
+        height: 2px;
+    }
+
+    /* Opening */
+    #opening-screen {
+        min-height: 100svh;
+        padding: 24px var(--mobile-gutter);
+    }
+
+    .scrapbook-opening {
+        width: 100%;
+        max-width: 420px;
+        padding: 28px 4px;
+        justify-content: center;
+    }
+
+    .opening-body {
+        width: 100%;
+        font-size: 14px;
+        line-height: 1.75;
+    }
+
+    .oversized-heading {
+        font-size: clamp(3.25rem, 16vw, 5rem);
+        line-height: .92;
+        letter-spacing: -.04em;
+        margin-top: 10px !important;
+    }
+
+    .opening-body .flex-align-center {
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .opening-body .decorative-line.short {
+        flex: 0 0 30px;
+        margin-top: 15px;
+    }
+
+    .opening-body .script-large {
+        font-size: 2.05rem;
+    }
+
+    .heart-mark {
+        margin-top: 7px;
+    }
+
+    .btn-container {
+        margin-top: 42px !important;
+        width: 100%;
+    }
+
+    .scrapbook-btn {
+        min-height: 48px;
+        padding: 10px 22px;
+        border-radius: 999px;
+        font-size: 15px;
+        box-shadow: 0 8px 24px rgba(122,59,79,.09);
+    }
+
+    /* Global sections */
+    .fullscreen-section,
+    .padded-section {
+        width: 100%;
+        max-width: 100%;
+        min-height: auto;
+    }
+
+    .padded-section {
+        padding: 88px var(--mobile-gutter);
+    }
+
+    .fullscreen-section {
+        padding: 72px var(--mobile-gutter);
+    }
+
+    .bg-typography {
+        font-size: 34vw;
+        opacity: .65;
+    }
+
+    .chapter-label {
+        font-size: 10px;
+        letter-spacing: .16em;
+    }
+
+    .serif-title {
+        font-size: clamp(1.9rem, 9vw, 2.65rem);
+        line-height: 1.08;
+    }
+
+    .story-text {
+        font-size: 15px;
+        line-height: 1.75;
+    }
+
+    .large-italic {
+        font-size: 1.45rem;
+        line-height: 1.25;
+    }
+
+    .script-large {
+        font-size: 2.5rem;
+    }
+
+    /* Reveal */
+    .reveal-up { transform: translateY(14px); }
+    .reveal-left { transform: translateX(-14px); }
+    .reveal-right { transform: translateX(14px); }
+    .reveal-scale { transform: scale(.985); }
+
+    /* Section: YOU DID IT */
+    #reveal {
+        padding-top: 78px;
+        padding-bottom: 92px;
+    }
+
+    .scrapbook-layout-1 {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 32px;
+    }
+
+    .scrapbook-text-area {
+        width: 100%;
+    }
+
+    .scrapbook-title {
+        margin: 14px 0 26px !important;
+    }
+
+    .serif-part {
+        font-size: clamp(3rem, 15vw, 4.2rem);
+    }
+
+    .script-part {
+        font-size: clamp(3.9rem, 19vw, 5.8rem);
+        margin-left: 10px;
+        margin-top: -5px;
+    }
+
+    .text-block {
+        padding: 18px 18px 20px;
+        border-radius: 14px;
+        background: rgba(255,255,255,.7);
+        box-shadow: 0 10px 28px rgba(0,0,0,.035);
+    }
+
+    .scrapbook-photo-frame {
+        width: min(82vw, 300px);
+        max-width: none;
+        margin: 0 auto;
+        padding: 8px 8px 24px;
+        border-radius: 5px;
+        transform: rotate(2deg) !important;
+        box-shadow: var(--mobile-shadow);
+    }
+
+    .hero-photo-container {
+        aspect-ratio: 4 / 5;
+        border-radius: 3px;
+    }
+
+    /* Journey */
+    #journey {
+        padding-top: 90px;
+        padding-bottom: 96px;
+    }
+
+    .scrapbook-narrative {
+        width: 100%;
+    }
+
+    .scrapbook-card {
+        border-radius: var(--mobile-card-radius);
+        box-shadow: var(--mobile-shadow);
+    }
+
+    .card-style-1,
+    .card-style-note,
+    .card-style-torn,
+    .card-style-strip {
+        max-width: 100%;
+    }
+
+    .card-style-1 {
+        padding: 22px;
+        transform: rotate(-1deg);
+    }
+
+    .card-style-note {
+        margin-left: auto;
+        width: 82%;
+        transform: rotate(2deg);
+        background: #fffaf8;
+    }
+
+    .card-style-torn {
+        width: 84%;
+        transform: rotate(-1.5deg);
+    }
+
+    .card-style-strip {
+        width: 94%;
+        margin-left: auto;
+        transform: rotate(.5deg);
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .spacer-large {
+        height: 72px;
+    }
+
+    .spacer-medium {
+        height: 48px;
+    }
+
+    .story-block {
+        padding: 44px 18px;
+        margin-left: -2px;
+        margin-right: -2px;
+    }
+
+    .massive-text {
+        font-size: clamp(2.35rem, 12vw, 3.5rem);
+        line-height: .98;
+    }
+
+    .scrapbook-highlight-box {
+        width: 100%;
+        max-width: none;
+        padding: 34px 20px;
+        border-radius: 18px;
+        box-shadow: var(--mobile-shadow);
+        transform: rotate(-.7deg);
+    }
+
+    .emphasis-text {
+        font-size: 1.35rem !important;
+        line-height: 1.25;
+    }
+
+    /* Interactive message */
+    #interactive-message {
+        padding-top: 82px;
+        padding-bottom: 90px;
+    }
+
+    .scrapbook-note-card {
+        width: 100%;
+        max-width: none;
+        padding: 40px 22px 34px;
+        border-radius: 20px;
+        box-shadow: var(--mobile-shadow);
+    }
+
+    .scrapbook-note-card .serif-text {
+        font-size: 1.35rem;
+        line-height: 1.35;
+    }
+
+    .btn-delicate {
+        min-height: 44px;
+        font-size: 15px;
+    }
+
+    .hidden-message {
+        margin-top: 28px !important;
+    }
+
+    .hidden-message .story-text {
+        font-size: 15px;
+    }
+
+    /* Memories — no overlapping pile on phones */
+    #memories {
+        padding-top: 86px;
+        padding-bottom: 96px;
+    }
+
+    .scrapbook-collage-gallery {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+        width: 100%;
+        margin-top: 34px;
+        padding: 0;
+        align-items: start;
+    }
+
+    .polaroid-scrapbook {
+        width: 100%;
+        max-width: none;
+        margin: 0 !important;
+        padding: 7px 7px 22px;
+        border-radius: 5px;
+        box-shadow: 0 10px 28px rgba(0,0,0,.065);
+    }
+
+    .polaroid-scrapbook:nth-child(1) {
+        transform: rotate(-2deg);
+    }
+
+    .polaroid-scrapbook:nth-child(2) {
+        transform: rotate(2deg);
+        margin-top: 20px !important;
+    }
+
+    .polaroid-scrapbook:nth-child(3) {
+        transform: rotate(1.5deg);
+        margin-top: -4px !important;
+    }
+
+    .polaroid-scrapbook:nth-child(4) {
+        transform: rotate(-2deg);
+        margin-top: 18px !important;
+    }
+
+    .polaroid-scrapbook:nth-child(5) {
+        grid-column: 1 / -1;
+        width: 72%;
+        justify-self: center;
+        transform: rotate(-1deg);
+        margin-top: 10px !important;
+    }
+
+    .photo-placeholder {
+        width: 100%;
+        aspect-ratio: 4 / 5;
+        border-radius: 2px;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .caption.handwritten {
+        font-size: 1.05rem;
+        margin-top: 10px;
+        min-height: 1.1em;
+    }
+
+    /* Letter transition */
+    #transition-letter {
+        min-height: 100svh;
+        padding: 84px var(--mobile-gutter) 70px;
+    }
+
+    .story-container {
+        width: 100%;
+    }
+
+    .transition-out .story-text {
+        font-size: 15px;
+    }
+
+    .transition-out .large-italic {
+        font-size: 1.55rem;
+    }
+
+    .highlight-text {
+        font-size: 1.7rem;
+        line-height: 1.2;
+    }
+
+    .arrow-note {
+        right: 9%;
+        top: -15px;
+        font-size: 1.15rem;
+    }
+
+    .envelope-wrapper {
+        width: min(86vw, 330px);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .envelope {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1.6 / 1;
+    }
+
+    .envelope-front,
+    .envelope-flap {
+        border-width: calc(min(86vw, 330px) * .24) calc(min(86vw, 330px) * .5);
+    }
+
+    .heart-seal {
+        width: 42px;
+        height: 42px;
+    }
+
+    /* Love letter */
+    .letter-bg {
+        min-height: 100svh;
+        padding: 54px 14px 72px;
+    }
+
+    .scrapbook-letter-container {
+        width: 100%;
+        max-width: 520px;
+    }
+
+    .scrapbook-stationery {
+        padding: 40px 23px 38px;
+        border-radius: 4px;
+        font-size: 15px;
+        line-height: 1.78;
+        box-shadow: 0 18px 45px rgba(0,0,0,.07);
+    }
+
+    .scrapbook-stationery p {
+        margin-bottom: 1.1rem;
+    }
+
+    .letter-emphasis {
+        font-size: 1.1em;
+        line-height: 1.45;
+    }
+
+    .script-signature {
+        font-size: 2.8rem !important;
+    }
+
+    .letter-btn-container {
+        margin-top: 34px !important;
+    }
+
+    /* Ending */
+    .dark-ending {
+        min-height: 100svh;
+    }
+
+    .editorial-ending {
+        width: calc(100% - 40px);
+        max-width: 420px;
+        text-align: center;
+    }
+
+    .cinematic-phrase {
+        text-align: center;
+        font-size: 1.15rem;
+        line-height: 1.65;
+    }
+
+    .massive-ending-text {
+        font-size: 1.8rem;
+        line-height: 1.25;
+    }
+
+    .final-message {
+        text-align: center;
+    }
+
+    .final-message h1 {
+        font-size: 1.7rem;
+        line-height: 1.2;
+    }
+
+    .final-message p {
+        font-size: 15px;
+    }
+
+    .final-message .always-text {
+        font-size: 4rem;
+    }
+
+    /* Mobile interaction/accessibility */
+    button,
+    .envelope-wrapper {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+
+    @media (hover: none) {
+        .btn-delicate:hover::after,
+        .scrapbook-btn:hover {
+            transform: none;
+            box-shadow: inherit;
+        }
+    }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+    :root {
+        --mobile-gutter: 16px;
+    }
+
+    .oversized-heading {
+        font-size: 3.05rem;
+    }
+
+    .script-part {
+        font-size: 3.65rem;
+    }
+
+    .scrapbook-collage-gallery {
+        gap: 12px;
+    }
+
+    .polaroid-scrapbook {
+        padding-bottom: 18px;
+    }
+
+    .scrapbook-stationery {
+        padding-left: 19px;
+        padding-right: 19px;
+    }
+}
+
+
+/* =========================================================
+   YOU DID IT — FULL PHOTO HEADER
+   Responsive on desktop + mobile
+   ========================================================= */
+
+#reveal {
+    padding: 0 !important;
+    min-height: 100svh;
+    overflow: hidden;
+}
+
+#reveal > .bg-glow {
+    display: none;
+}
+
+#reveal .reveal-content {
+    width: 100%;
+    min-height: 100svh;
+    margin: 0 !important;
+    display: flex;
+    align-items: stretch;
+}
+
+#reveal .scrapbook-layout-1 {
+    position: relative;
+    width: 100%;
+    min-height: 100svh;
+    display: block;
+    overflow: hidden;
+}
+
+/* Photo fills the entire You Did It section */
+#reveal .scrapbook-photo-frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    transform: none !important;
+    background: transparent;
+    box-shadow: none;
+    z-index: 1;
+}
+
+#reveal .hero-photo-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    border-radius: 0;
+    background: #ddd;
+    box-shadow: none;
+}
+
+#reveal .hero-anggi-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 42%;
+    filter: saturate(.88);
+}
+
+/* Cinematic overlay */
+#reveal .scrapbook-photo-frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(25, 18, 20, .10) 0%,
+            rgba(25, 18, 20, .08) 34%,
+            rgba(25, 18, 20, .45) 62%,
+            rgba(25, 18, 20, .88) 100%
+        );
+    pointer-events: none;
+}
+
+/* Remove old scrapbook photo decorations */
+#reveal .faded-frame-bg,
+#reveal .scrapbook-photo-frame .paper-tape,
+#reveal .scrapbook-photo-frame .botanical-decoration {
+    display: none;
+}
+
+/* Text sits at the bottom of the photo */
+#reveal .scrapbook-text-area {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    width: 100%;
+    padding: clamp(32px, 7vw, 70px) clamp(24px, 7vw, 100px);
+    color: #fff;
+}
+
+#reveal .chapter-label {
+    color: rgba(255,255,255,.78);
+    font-size: clamp(9px, 1vw, 12px);
+    letter-spacing: .18em;
+}
+
+#reveal .scrapbook-title {
+    margin: 12px 0 24px !important;
+}
+
+#reveal .serif-part {
+    color: #fff;
+    font-size: clamp(3.2rem, 8vw, 7rem);
+    line-height: .9;
+    text-shadow: 0 4px 25px rgba(0,0,0,.22);
+}
+
+#reveal .script-part {
+    color: #f1cdd5;
+    font-size: clamp(4rem, 11vw, 9rem);
+    line-height: .78;
+    margin-left: 8px;
+    margin-top: -2px;
+    text-shadow: 0 4px 25px rgba(0,0,0,.22);
+}
+
+#reveal .text-block {
+    padding: 0 0 0 18px;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    border-left: 1px solid rgba(255,255,255,.5);
+}
+
+#reveal .text-block .torn-paper {
+    display: none;
+}
+
+#reveal .text-block .sans-text {
+    color: rgba(255,255,255,.94);
+}
+
+#reveal .text-block .small-text {
+    color: rgba(255,255,255,.70);
+    line-height: 1.65;
+}
+
+#reveal .decorative-vertical-line {
+    background: rgba(255,255,255,.55);
+}
+
+/* Small eyebrow at top */
+#reveal .scrapbook-layout-1::before {
+    content: "A LITTLE MOMENT FOR YOU";
+    position: absolute;
+    top: 30px;
+    left: clamp(24px, 7vw, 100px);
+    z-index: 6;
+    color: rgba(255,255,255,.72);
+    font-family: var(--font-sans);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: .18em;
+}
+
+@media (min-width: 768px) {
+    #reveal .scrapbook-text-area {
+        max-width: 700px;
+    }
+
+    #reveal .text-block {
+        max-width: 520px;
+    }
+}
+
+@media (max-width: 767px) {
+    #reveal .hero-anggi-photo {
+        object-position: center center;
+    }
+
+    #reveal .scrapbook-text-area {
+        padding: 34px 22px 42px;
+    }
+
+    #reveal .serif-part {
+        font-size: clamp(3rem, 15vw, 4.5rem);
+    }
+
+    #reveal .script-part {
+        font-size: clamp(4rem, 19vw, 6rem);
+    }
+}
+
+@media (max-width: 380px) {
+    #reveal .scrapbook-text-area {
+        padding-left: 18px;
+        padding-right: 18px;
+        padding-bottom: 34px;
+    }
+
+    #reveal .serif-part {
+        font-size: 2.8rem;
+    }
+
+    #reveal .script-part {
+        font-size: 3.6rem;
+    }
+}
+
+
+/* =========================================================
+   YOU DID IT — COMPACT MOBILE HEADER
+   ========================================================= */
+@media (max-width: 767px) {
+    #reveal {
+        min-height: 0;
+        height: 112vw;
+        max-height: 680px;
+        padding: 0 !important;
+    }
+
+    #reveal .reveal-content,
+    #reveal .scrapbook-layout-1 {
+        min-height: 0;
+        height: 100%;
+    }
+
+    #reveal .scrapbook-layout-1 {
+        overflow: hidden;
+    }
+
+    #reveal .hero-photo-container,
+    #reveal .scrapbook-photo-frame {
+        height: 100%;
+    }
+
+    #reveal .hero-anggi-photo {
+        object-position: center 38%;
+    }
+
+    /* Slightly softer overlay so the photo remains visible */
+    #reveal .scrapbook-photo-frame::after {
+        background:
+            linear-gradient(
+                180deg,
+                rgba(25,18,20,.02) 0%,
+                rgba(25,18,20,.04) 35%,
+                rgba(25,18,20,.42) 65%,
+                rgba(25,18,20,.78) 100%
+            );
+    }
+
+    #reveal .scrapbook-layout-1::before {
+        top: 18px;
+        left: 20px;
+        font-size: 8px;
+    }
+
+    #reveal .scrapbook-text-area {
+        padding: 22px 20px 25px;
+    }
+
+    #reveal .chapter-label {
+        font-size: 9px;
+    }
+
+    #reveal .scrapbook-title {
+        margin: 8px 0 14px !important;
+    }
+
+    #reveal .serif-part {
+        font-size: clamp(2.45rem, 12vw, 3.7rem);
+        line-height: .88;
+    }
+
+    #reveal .script-part {
+        font-size: clamp(3.2rem, 15vw, 4.8rem);
+        line-height: .72;
+        margin-left: 3px;
+    }
+
+    #reveal .text-block {
+        padding-left: 12px;
+    }
+
+    #reveal .text-block .sans-text {
+        font-size: 13px;
+        line-height: 1.45;
+    }
+
+    #reveal .text-block .small-text {
+        font-size: 11px;
+        line-height: 1.45;
+    }
+
+    #reveal .text-block .decorative-vertical-line {
+        height: 10px;
+        margin: 5px 0;
+    }
+}
+
+@media (max-width: 380px) {
+    #reveal {
+        height: 108vw;
+    }
+
+    #reveal .scrapbook-text-area {
+        padding: 19px 17px 21px;
+    }
+
+    #reveal .serif-part {
+        font-size: 2.35rem;
+    }
+
+    #reveal .script-part {
+        font-size: 3.05rem;
+    }
+}
+
